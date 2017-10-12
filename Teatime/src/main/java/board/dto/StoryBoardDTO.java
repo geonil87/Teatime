@@ -1,5 +1,8 @@
 package board.dto;
 
+import org.springframework.stereotype.Repository;
+
+
 public class StoryBoardDTO {
 	
 

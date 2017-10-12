@@ -1,5 +1,13 @@
 package board.service;
 
-public class StoryBoardService {
+import java.util.List;
+
+import board.dto.StoryBoardDTO;
+
+public interface StoryBoardService {
+	
+	public List<StoryBoardDTO> getStoryBoardList();
+
+	
 
 }
