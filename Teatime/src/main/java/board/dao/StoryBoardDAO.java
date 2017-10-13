@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+
 
 import board.dto.StoryBoardDTO;
 
@@ -19,7 +19,7 @@ public class StoryBoardDAO {
 	SqlSession session;
 	
 	
-	//��ü��ȸ
+	//전체조회
 	public List<StoryBoardDTO> getAllStoryBoard(){
 		
 	List<StoryBoardDTO> list = session.selectList("storyboard.all");
@@ -27,5 +27,23 @@ public class StoryBoardDAO {
 	return list;
 	
 	}
+	
+	
+	//한개조회
+	public StoryBoardDTO getDetailStoryBoard(int idx){
+		StoryBoardDTO storyDTO = session.selectOne("storyboard.detail", idx);
+		return storyDTO;
+	}
+	
+	//글쓰기
+	public int insertStoryBoard(StoryBoardDTO storyDTO){
+		
+	return session.insert("storyboard.insert", storyDTO);
+	
+	}
+	
+	
+
 
 }
+

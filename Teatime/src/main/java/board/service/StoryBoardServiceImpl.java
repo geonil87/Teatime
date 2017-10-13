@@ -13,6 +13,8 @@ public class StoryBoardServiceImpl implements StoryBoardService{
 
 	
 
+
+
 	@Autowired
 	StoryBoardDAO storyBoardDAO;
 	
@@ -22,6 +24,24 @@ public class StoryBoardServiceImpl implements StoryBoardService{
 		
 	}
 	
-
+	public StoryBoardDTO getDetailStoryBoard(int idx) {
+		return storyBoardDAO.getDetailStoryBoard(idx);
+	}
 	
-}
+	public String insertStoryBoard(StoryBoardDTO storyDTO) {
+		int result =storyBoardDAO.insertStoryBoard(storyDTO);
+		System.out.println(result);
+		String url = "";
+		if(result == 1){
+			url = "storyboard/StoryBoardList";
+		}
+		else{
+			url = "storyboard/StoryBoardWriteFail";
+		}
+		return url;
+	}
+
+
+	}
+	
+

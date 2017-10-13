@@ -8,6 +8,8 @@ public interface StoryBoardService {
 	
 	public List<StoryBoardDTO> getStoryBoardList();
 
+	public String insertStoryBoard(StoryBoardDTO storyDTO);
 	
+	public StoryBoardDTO getDetailStoryBoard(int idx);
 
 }

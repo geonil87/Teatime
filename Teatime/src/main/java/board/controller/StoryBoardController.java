@@ -19,8 +19,8 @@ public class StoryBoardController {
 	@Autowired
 	StoryBoardServiceImpl service;
 	
-	@RequestMapping("teatime.storyboardlist")
-    public ModelAndView getBoardList() {
+	@RequestMapping("teatime.storyBoardList")
+    public ModelAndView getStoryList() {
 	List<StoryBoardDTO> list = service.getStoryBoardList();
 		
 		ModelAndView mav = new ModelAndView();
@@ -31,6 +31,32 @@ public class StoryBoardController {
 		
 		return mav;
     }
+	
+	@RequestMapping(value="teatime.storyBoardInsert",method=RequestMethod.GET)
+	public String moveStoryInsert(){
+		
+		return "storyboard/StoryBoardWrite";
+	}
+	
+	@RequestMapping("teatime.storyBoardDetail")
+	public ModelAndView getBoardDetail(int idx){
+		ModelAndView mav = new ModelAndView();
+		StoryBoardDTO storyDTO = service.getDetailStoryBoard(idx);
+		mav.addObject("detail", storyDTO);
+		mav.setViewName("StoryBoardDeatail");
+		return mav;		
+	}
+	
+	
+	@RequestMapping(value="teatime.storyBoardInsert",method=RequestMethod.POST)
+	public String setStoryInsert(StoryBoardDTO storyDTO){
+		
+		String url = service.insertStoryBoard(storyDTO);
+		
+		return url;					
+	}
+	
+	
 	
 	
 }
