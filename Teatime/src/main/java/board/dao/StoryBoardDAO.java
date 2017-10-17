@@ -29,9 +29,13 @@ public class StoryBoardDAO {
 	}
 	
 	
-	//한개조회
+	//한개조회 (글번호로 조회)
 	public StoryBoardDTO getDetailStoryBoard(int idx){
+		
 		StoryBoardDTO storyDTO = session.selectOne("storyboard.detail", idx);
+		
+		
+		System.out.println(storyDTO.getWdate());
 		return storyDTO;
 	}
 	
@@ -40,6 +44,24 @@ public class StoryBoardDAO {
 		
 	return session.insert("storyboard.insert", storyDTO);
 	
+	}
+	
+	
+	//게시글 수정
+	public int modifyStoryBoard(StoryBoardDTO storyDTO){
+		
+		System.out.println(storyDTO.getTitle() +":" + storyDTO.getContent() +":" + storyDTO.getIdx());
+		
+		int result = session.update("storyboard.modify", storyDTO);
+		
+		return result;
+	}
+	
+	
+	//게시글 삭제(글번호로 삭제)
+	public int deleteStoryBoard(int idx){
+		
+		return session.delete("storyboard.delete", idx);
 	}
 	
 	

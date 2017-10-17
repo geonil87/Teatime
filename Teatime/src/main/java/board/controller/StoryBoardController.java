@@ -1,5 +1,6 @@
 package board.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,10 @@ public class StoryBoardController {
 	@Autowired
 	StoryBoardServiceImpl service;
 	
+	
+	
+	
+	//전체조회
 	@RequestMapping("teatime.storyBoardList")
     public ModelAndView getStoryList() {
 	List<StoryBoardDTO> list = service.getStoryBoardList();
@@ -32,31 +37,69 @@ public class StoryBoardController {
 		return mav;
     }
 	
+	
+	//게시글 한개 조회
+	@RequestMapping("teatime.storyBoardDetail")
+	public ModelAndView getBoardDetail(int idx){
+		ModelAndView mav = new ModelAndView();
+		StoryBoardDTO storyDTO = service.getDetailStoryBoard(idx);
+		mav.addObject("detail", storyDTO);
+		mav.setViewName("storyboard/StoryBoardDeatail");
+		return mav;		
+	}
+	
+	
+	//게시글 추가
 	@RequestMapping(value="teatime.storyBoardInsert",method=RequestMethod.GET)
 	public String moveStoryInsert(){
 		
 		return "storyboard/StoryBoardWrite";
 	}
 	
-	@RequestMapping("teatime.storyBoardDetail")
-	public ModelAndView getBoardDetail(int idx){
-		ModelAndView mav = new ModelAndView();
-		StoryBoardDTO storyDTO = service.getDetailStoryBoard(idx);
-		mav.addObject("detail", storyDTO);
-		mav.setViewName("StoryBoardDeatail");
-		return mav;		
-	}
-	
-	
+	//게시글 추가 후 게시판 전체조회로
 	@RequestMapping(value="teatime.storyBoardInsert",method=RequestMethod.POST)
 	public String setStoryInsert(StoryBoardDTO storyDTO){
 		
 		String url = service.insertStoryBoard(storyDTO);
 		
-		return url;					
+		return "redirect:teatime.storyBoardList";					
 	}
 	
 	
+	
+	//게시글 수정
+	@RequestMapping(value="teatime.storyBoardModify",method=RequestMethod.GET)
+	public ModelAndView moveStoryModify(int idx){
+		
+		ModelAndView mav = new ModelAndView();
+		StoryBoardDTO storyDTO = service.getDetailStoryBoard(idx);
+		mav.addObject("modify", storyDTO);
+		mav.setViewName("storyboard/StoryBoardModify");
+		return mav;	
+		
+		
+	
+	}
+	
+	@RequestMapping(value="teatime.storyBoardModify",method=RequestMethod.POST)
+	public String setModifyStoryBoard(StoryBoardDTO storyDTO){
+		
+		System.out.println(storyDTO.getTitle() +":" + storyDTO.getContent());
+		
+		String url = service.modifyStoryBoard(storyDTO);
+		
+		return "redirect:teatime.storyBoardList";					
+	}
+	
+	//게시글 삭제
+	@RequestMapping("teatime.storyBoardDelet")
+	
+	public String setDeleteStoryBoard(int idx){
+		
+		String url = service.deleteStoryBoard(idx);
+		
+		return "redirect:teatime.storyBoardList";
+	}
 	
 	
 }
