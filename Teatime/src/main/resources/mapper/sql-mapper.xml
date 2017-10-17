@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD mapper 3.0//EN" "Http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="login">
+	<!-- ResultMap -->
+	<resultMap type="java.util.Map" id="result">
+		<result column="user_id" property="userId"/>
+		<result column="user_pw" property="userPw"/>
+		<result column="user_nick" property="userNick"/>
+	</resultMap>
+
+	<!-- select -->
+	<select id="checkLoginInfo" parameterType="String" resultMap="result">
+		select user_id,user_pw,user_nick from member where user_id=#{user_id}
+	</select>
+	
+
+</mapper>
+	
+
